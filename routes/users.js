@@ -1,32 +1,59 @@
-// // To be updated with all user routes once complete
-// const express = require("express");
-// const router = express.Router();
-// const db = require("../index");
-// // const app = express();
-// // const bodyParser = require("body-parser");
-// // const cors = require("cors");
+const db = require("../database/database");
 
-// // app.use(cors());
-// // app.use(express.json());
-// // app.use(bodyParser.urlencoded({ extended: true }));
+// Get all users
+const getUsers = (req, res) => {
+  db.query(`Select * from users`, (err, result) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).send(result.rows);
+  });
+};
 
-// // Get all users
-// router.get("/users", (req, res) => {
-//   const getUsers = `Select * from users`;
-//   db.query(getUsers, (err, result) => {
-//     console.log("err", err);
-//     console.log("result", result.rows);
-//     res.send(result.rows);
+// Get user by id
+const getUsersById = (req, res) => {
+  const { id } = req.params;
+  db.query(`Select * from users where id = ${id}`, (err, result) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).send(result.rows);
+  });
+};
+
+// Create a new user
+const createUser = (req, res) => {
+  const { username, password } = req.body;
+  db.query(
+    "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *",
+    [username, password],
+    (err, result) => {
+      if (err) {
+        res.status(500).send({ error: err.message });
+      } else {
+        res.status(201).send({ password, username });
+      }
+    }
+  );
+};
+
+// app.post("/register", (req, res) => {
+//   const { password, username } = req.body;
+//   const insertStmt = "INSERT INTO users(password,username) VALUES ($1,$2)";
+//   db.query(insertStmt, [password, username], function (err, result) {
+//     if (err) {
+//       res.status(500).send({ error: err.message });
+//     } else {
+//       res.send({
+//         password,
+//         username,
+//       });
+//     }
 //   });
 // });
 
-// // Get user by id
-// router.get("/users/:id", (req, res) => {
-//   const { id } = req.params;
-//   const getUserById = `Select * from users where id = ${id}`;
-//   db.query(getUserById, (err, result) => {
-//     res.send(result.rows);
-//   });
-// });
-
-// module.exports = router;
+module.exports = {
+  getUsers,
+  getUsersById,
+  createUser,
+};

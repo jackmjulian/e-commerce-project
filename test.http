@@ -13,5 +13,10 @@ Content-Type: application/json
 
 ###
 
-post http://localhost:3000/register HTTP/1.1
+post http://localhost:3000/users HTTP/1.1
+Content-Type: application/json
+
+###
+
+get http://localhost:3000/products HTTP/1.1
 Content-Type: application/json
