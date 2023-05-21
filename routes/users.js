@@ -58,7 +58,7 @@ const userLogin = async (req, res) => {
 const getUser = async (req, res) => {
   const { username: username, password: password } = req.body;
   db.query(
-    `SELECT * from users WHERE username=$1 and password=$2`,
+    `SELECT id, username, password from users WHERE username=$1 and password=$2`,
     [username, password],
     (err, user) => {
       if (err) {
