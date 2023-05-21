@@ -1,5 +1,6 @@
 const db = require("../database/database");
 
+// Get order by id
 const getOrderById = (req, res) => {
   const { id } = req.params;
   db.query(`Select * from orders where id = ${id}`, (err, result) => {

@@ -10,6 +10,7 @@ const getProducts = (req, res) => {
   });
 };
 
+// Get product by id
 const getProductById = (req, res) => {
   const { id } = req.params;
   db.query(`Select * from products where id = ${id}`, (err, result) => {

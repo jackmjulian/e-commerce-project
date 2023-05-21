@@ -14,8 +14,8 @@ const getUsers = (req, res) => {
 const getUsersById = (req, res) => {
   const { id } = req.params;
   db.query(`Select * from users where id = ${id}`, (err, result) => {
-    if (err) {
-      throw err;
+    if (!result) {
+      res.status(404).send("User not found");
     }
     res.status(200).send(result.rows);
   });
@@ -37,23 +37,42 @@ const createUser = (req, res) => {
   );
 };
 
-// app.post("/register", (req, res) => {
-//   const { password, username } = req.body;
-//   const insertStmt = "INSERT INTO users(password,username) VALUES ($1,$2)";
-//   db.query(insertStmt, [password, username], function (err, result) {
-//     if (err) {
-//       res.status(500).send({ error: err.message });
-//     } else {
-//       res.send({
-//         password,
-//         username,
-//       });
-//     }
-//   });
-// });
+// User login - to be replaced with login authentication
+const userLogin = async (req, res) => {
+  const { username, password } = req.body;
+  db.query(
+    "SELECT (username, password) from users WHERE VALUES ($1, $2) RETURNING *",
+    [username, password],
+    (err, result) => {
+      if (!result.username) {
+        res.status(401).send("Incorrect username or password");
+      } else if (!result.password === password) {
+        res.status(401).send("Incorrect username or password");
+      } else {
+        res.status(200).send(result.rows);
+      }
+    }
+  );
+};
+
+const getUser = async (req, res) => {
+  const { username: username, password: password } = req.body;
+  db.query(
+    `SELECT * from users WHERE username=$1 and password=$2`,
+    [username, password],
+    (err, user) => {
+      if (err) {
+        throw err;
+      }
+      res.status(200).send(user.rows[0]);
+    }
+  );
+};
 
 module.exports = {
+  getUser,
   getUsers,
   getUsersById,
   createUser,
+  userLogin,
 };

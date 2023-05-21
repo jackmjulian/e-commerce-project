@@ -1,5 +1,6 @@
 const db = require("../database/database");
 
+// Get cart by id
 const getCartById = (req, res) => {
   const { id } = req.params;
   db.query(`Select * from cart where id = ${id}`, (err, result) => {
