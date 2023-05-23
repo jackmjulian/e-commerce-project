@@ -77,20 +77,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Home Page
 app.get("/", (req, res) => {
-  res.send("E-Commerce_Project");
+  res.send("E-Commerce Project");
 });
 
 // User Routes
 app.get("/users", userRoutes.getUsers);
 app.get("/users/:id", userRoutes.getUsersById);
 app.post("/users", userRoutes.createUser);
-// app.post("/login", userRoutes.userLogin);
 app.get("/user", userRoutes.getUser);
+app.put("/user/:id", userRoutes.updateUser);
+app.delete("/user/:id", userRoutes.deleteUser);
 
-// app.post('/login', passport.authenticate('local'), (req, res) => {
-//   res.json({ message: 'Login successful.' });
-// });
-
+// User Authentication Route
 app.post(
   "/login",
   passport.authenticate("local", { failureRedirect: "/login" }),
@@ -106,6 +104,8 @@ app.get("/products/:id", productsRoutes.getProductById);
 
 // Cart Routes
 app.get("/cart/:id", cartRoutes.getCartById);
+// app.post("/cart/:addItem", cartRoutes.addItemToCart);
+// app.delete("/cart/:deleteItem", cartRoutes.deleteCart
 
 // Order Routes
 app.get("/order/:id", orderRoutes.getOrderById);

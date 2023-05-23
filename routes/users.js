@@ -69,10 +69,38 @@ const getUser = async (req, res) => {
   );
 };
 
+const updateUser = (req, res) => {
+  const { id } = req.params;
+  const { username, password } = req.body;
+  db.query(
+    `UPDATE users SET username=$1, password=$2 WHERE ID=$3`,
+    [username, password, id],
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+      res.status(200).send(`User modified with ID: ${id}`);
+    }
+  );
+};
+
+const deleteUser = (request, response) => {
+  const id = parseInt(request.params.id);
+
+  db.query("DELETE FROM users WHERE id=$1", [id], (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).send(`User deleted with ID: ${id}`);
+  });
+};
+
 module.exports = {
   getUser,
   getUsers,
   getUsersById,
   createUser,
   userLogin,
+  updateUser,
+  deleteUser,
 };

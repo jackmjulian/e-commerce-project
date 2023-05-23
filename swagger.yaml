@@ -1,0 +1,151 @@
+openapi: 3.0.1
+info:
+  title: Online E-Commerce API
+  version: 1.0.0
+  description: E-Commerce CodeCademy Project
+paths:
+  /users/id:
+    summary: Gets User by ID
+    description: Gets User by ID
+    get:
+      summary: Gets User by their ID
+      description: Gets User by their ID
+      operationId: ''
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              examples:
+                User by ID:
+                  value: |-
+                    [
+                        {
+                            "id": 1,
+                            "username": "newuser",
+                            "password": "newuser"
+                        }
+                    ]
+        default:
+          description: Default error sample response
+      tags:
+        - Users
+  /users:
+    summary: Creates a New User
+    description: Creates a New User
+    post:
+      summary: Creates a New User
+      description: Creates a New User
+      operationId: ''
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              examples:
+                Create New User:
+                  value: |2-
+                        {
+                            "username": "newuser",
+                            "password": "newuser"
+                        }
+        default:
+          description: Default error sample response
+      tags:
+        - Users
+  /login:
+    summary: Login for Existing Users
+    description: Login for Existing Users
+    post:
+      summary: Login for Existing Users
+      description: Login for Existing Users
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - /Login
+  /products:
+    summary: Get all Products
+    description: Get all Products
+    get:
+      summary: Get all Products
+      description: Get all Products
+      operationId: ''
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              examples:
+                Get all Products:
+                  value: |-
+                    [
+                        {
+                            "id": 1,
+                            "name": "Bag",
+                            "price": 10,
+                            "decription": "BackPack"
+                        },
+                        {
+                            "id": 2,
+                            "name": "Jacket",
+                            "price": 20,
+                            "decription": "Black Jacket"
+                        }
+                    ]
+        default:
+          description: Default error sample response
+      tags:
+        - Products
+  /products/id:
+    summary: Gets Product by ID
+    description: Gets Product by ID
+    get:
+      summary: Get Product by ID
+      description: Get Product by ID
+      operationId: ''
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              examples:
+                Get a Product by ID:
+                  value: |-
+                    [
+                        {
+                            "id": 1,
+                            "name": "Bag",
+                            "price": 10,
+                            "decription": "BackPack"
+                        }
+                    ]
+        default:
+          description: Default error sample response
+      tags:
+        - Products
+  /cart/id:
+    summary: Gets Cart by ID
+    description: Gets Cart by ID
+    get:
+      summary: Get Cart by ID
+      description: Get Cart by ID
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Cart
+  /order/id:
+    summary: Get Order by ID
+    description: Get Order by ID
+    get:
+      summary: Get Order by ID
+      description: Get Order by ID
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Order

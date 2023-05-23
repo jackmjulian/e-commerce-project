@@ -11,6 +11,16 @@ const getCartById = (req, res) => {
   });
 };
 
+//Add single product to cart with quanity and it
+const addItemToCart = (req, res) => {};
+
+//Remove single product to cart with quanity and it
+const removeItemFromCart = (req, res) => {};
+
+//Checkout cart and get payment information, this will be pushed into as order
+const checkoutCart = (req, res) => {};
+
+
 module.exports = {
   getCartById,
 };
